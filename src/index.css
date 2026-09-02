@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --color-charcoal: #050505;
+  --color-charcoal-light: #0a0a0b;
+  --color-charcoal-elevated: #111113;
+  --color-navy: #0d1117;
+  --color-silver: #c0c0c0;
+  --color-silver-muted: #8a8f98;
+  --color-electric: #007bff;
+  --color-cyan: #00d4ff;
+  --color-electric-glow: rgba(0, 123, 255, 0.35);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply m-0 overflow-x-hidden bg-charcoal text-silver font-body antialiased;
+  }
+
+  #root {
+    @apply min-h-svh w-full max-w-none overflow-x-hidden;
+  }
+
+  img,
+  video,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-linear-to-r from-silver via-white to-electric bg-clip-text text-transparent;
+  }
+
+  .text-gradient-blue {
+    @apply bg-linear-to-r from-electric to-cyan bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply border border-white/10 bg-charcoal-light/70 backdrop-blur-xl;
+  }
+
+  .glass-card {
+    @apply rounded-xl border border-white/8 bg-charcoal-elevated/60 backdrop-blur-md;
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 40px var(--color-electric-glow);
+  }
+
+  .brand-logo {
+    filter: drop-shadow(0 0 12px rgba(0, 123, 255, 0.22));
+  }
+
+  .section-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  }
+
+  .touch-target {
+    @apply min-h-11 min-w-11;
+  }
+}
