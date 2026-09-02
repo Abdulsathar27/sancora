@@ -2,6 +2,22 @@
 
 Premium corporate website for **Sancora Technologies**, built with React, Tailwind CSS, TanStack Router, Context API, Framer Motion, and Lucide icons.
 
+## Live site
+
+**Website:** [https://sancora-technologies.vercel.app](https://sancora-technologies.vercel.app)
+
+This repo is connected to Vercel. Every push to `main` redeploys the live site, and deployment status appears on GitHub commits.
+
+### Update the website
+
+```bash
+git add .
+git commit -m "Your change description"
+git push origin main
+```
+
+Vercel builds and publishes automatically. Check the commit on GitHub for the deployment check, or open the live URL above after a minute or two.
+
 ## Tech Stack
 
 | Layer | Technology |

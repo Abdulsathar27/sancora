@@ -32,7 +32,10 @@ export function DocumentTitle() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   useEffect(() => {
-    document.title = `${resolveTitle(pathname)} | ${COMPANY_NAME}`
+    document.title =
+      pathname === '/'
+        ? `${COMPANY_NAME} | Software Development & Data Analytics`
+        : `${resolveTitle(pathname)} | ${COMPANY_NAME}`
   }, [pathname])
 
   return null
