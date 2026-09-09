@@ -2,7 +2,7 @@ import { type ReactNode } from 'react'
 import { motion, type HTMLMotionProps } from 'framer-motion'
 
 interface ButtonProps extends HTMLMotionProps<'button'> {
-  variant?: 'primary' | 'secondary' | 'ghost'
+  variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md' | 'lg'
   children: ReactNode
 }
@@ -11,7 +11,6 @@ const variants = {
   primary:
     'bg-linear-to-r from-electric to-cyan text-white shadow-lg shadow-electric/20 hover:shadow-electric/35',
   secondary: 'glass text-white hover:border-electric/50 hover:text-electric',
-  ghost: 'text-silver hover:bg-white/5 hover:text-electric',
 }
 
 const sizes = {

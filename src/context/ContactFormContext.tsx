@@ -15,7 +15,6 @@ interface ContactFormContextValue {
   status: SubmissionStatus
   updateField: (field: keyof ContactFormData, value: string) => void
   submitForm: (e: FormEvent) => Promise<void>
-  resetForm: () => void
 }
 
 const initialFormData: ContactFormData = {
@@ -36,11 +35,6 @@ export function ContactFormProvider({ children }: { children: ReactNode }) {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const resetForm = () => {
-    setFormData(initialFormData)
-    setStatus('idle')
-  }
-
   const submitForm = async (e: FormEvent) => {
     e.preventDefault()
     setStatus('loading')
@@ -54,7 +48,7 @@ export function ContactFormProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <ContactFormContext.Provider value={{ formData, status, updateField, submitForm, resetForm }}>
+    <ContactFormContext.Provider value={{ formData, status, updateField, submitForm }}>
       {children}
     </ContactFormContext.Provider>
   )

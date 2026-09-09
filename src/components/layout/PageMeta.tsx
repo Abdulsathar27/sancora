@@ -5,7 +5,6 @@ import { COMPANY_NAME, SITE_URL } from '../../data/brand'
 interface PageMetaProps {
   title: string
   description?: string
-  path?: string
 }
 
 function setMeta(attr: 'name' | 'property', key: string, content: string) {
@@ -32,12 +31,11 @@ function setCanonical(url: string) {
  * Page-level SEO: description, Open Graph, Twitter, and canonical URL.
  * Browser tab titles are owned by DocumentTitle (always includes Sancora Technologies).
  */
-export function PageMeta({ title, description, path }: PageMetaProps) {
+export function PageMeta({ title, description }: PageMetaProps) {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
-  const pagePath = path ?? pathname
-  const pageUrl = `${SITE_URL}${pagePath === '/' ? '/' : pagePath}`
+  const pageUrl = `${SITE_URL}${pathname === '/' ? '/' : pathname}`
   const fullTitle =
-    pagePath === '/'
+    pathname === '/'
       ? `${COMPANY_NAME} | Software Development & Data Analytics`
       : `${title} | ${COMPANY_NAME}`
 

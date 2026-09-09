@@ -12,7 +12,6 @@
   --color-silver-muted: #8a8f98;
   --color-electric: #007bff;
   --color-cyan: #00d4ff;
-  --color-electric-glow: rgba(0, 123, 255, 0.35);
 }
 
 @layer base {
@@ -64,20 +63,8 @@
     @apply rounded-xl border border-white/8 bg-charcoal-elevated/60 backdrop-blur-md;
   }
 
-  .glow-blue {
-    box-shadow: 0 0 40px var(--color-electric-glow);
-  }
-
   .brand-logo {
     filter: drop-shadow(0 0 12px rgba(0, 123, 255, 0.22));
-  }
-
-  .section-grid {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
   }
 
   .touch-target {

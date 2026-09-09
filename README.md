@@ -24,7 +24,7 @@ Vercel builds and publishes automatically. Check the commit on GitHub for the de
 |-------|-----------|
 | UI Framework | React (Vite) |
 | Styling | Tailwind CSS v4 |
-| State | React Context API (Theme, Nav, Contact Form) |
+| State | React Context API (Nav, Contact Form) |
 | Routing | TanStack Router (type-safe, code-based routes) |
 | Icons | lucide-react |
 | Animations | Framer Motion |
@@ -58,7 +58,7 @@ src/
 │   ├── home/          # Home page sections
 │   ├── layout/        # Navbar, Footer, Layout, PageMeta
 │   └── ui/            # Button, Card, Section, StatCounter, Carousel
-├── context/           # ThemeContext, NavContext, ContactFormContext
+├── context/           # NavContext, ContactFormContext
 ├── data/              # Static content (services, testimonials, team, case studies)
 ├── routes/            # Page components per route
 ├── router.tsx         # TanStack Router route tree

@@ -10,7 +10,6 @@ import {
 
 interface NavContextValue {
   isOpen: boolean
-  openMenu: () => void
   closeMenu: () => void
   toggleMenu: () => void
   scrolled: boolean
@@ -26,7 +25,6 @@ export function NavProvider({ children }: { children: ReactNode }) {
   const [hidden, setHidden] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
 
-  const openMenu = useCallback(() => setIsOpen(true), [])
   const closeMenu = useCallback(() => setIsOpen(false), [])
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), [])
 
@@ -61,14 +59,13 @@ export function NavProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       isOpen,
-      openMenu,
       closeMenu,
       toggleMenu,
       scrolled,
       hidden: isOpen ? false : hidden,
       scrollProgress,
     }),
-    [isOpen, openMenu, closeMenu, toggleMenu, scrolled, hidden, scrollProgress],
+    [isOpen, closeMenu, toggleMenu, scrolled, hidden, scrollProgress],
   )
 
   return <NavContext.Provider value={value}>{children}</NavContext.Provider>
