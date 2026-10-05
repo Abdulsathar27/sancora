@@ -1,8 +1,8 @@
 export const internshipProgram = {
   title: 'Sancora Internship Program',
   duration: '1–2 months',
-  location: 'Bangalore · Hybrid',
-  who: 'Students and fresh graduates',
+  location: 'Bangalore · Work from home',
+  who: 'Students, fresh graduates, and professionals',
   summary:
     'A mentored internship where you learn by working on real software, data, and client projects. This is a learning program, not a job opening.',
 }
@@ -37,6 +37,6 @@ export const internshipHighlights = [
 export const programIncludes = [
   'A mentor from the delivery team',
   'Scoped tasks you can finish and explain',
-  'Code, data, or design review — depending on your area',
+  'Code, data, or design, reviewed by a mentor depending on your area',
   'A closing demo of what you learned',
 ]
