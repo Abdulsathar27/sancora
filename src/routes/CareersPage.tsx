@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, Clock, GraduationCap, MapPin } from 'lucide-react'
 import { PageMeta } from '../components/layout/PageMeta'
@@ -9,6 +10,17 @@ import { internshipHighlights, internshipProgram, programIncludes } from '../dat
 import { COMPANY_NAME } from '../data/brand'
 
 export function CareersPage() {
+  const [applied, setApplied] = useState(false)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('applied') !== '1') return
+    setApplied(true)
+    params.delete('applied')
+    const query = params.toString()
+    window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}`)
+  }, [])
+
   const apply = () => {
     document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
@@ -101,6 +113,14 @@ export function CareersPage() {
       </Section>
 
       <Section id="apply">
+        {applied && (
+          <div className="mb-8 flex items-start gap-3 rounded-xl border border-electric/30 bg-electric/10 px-4 py-4 text-silver">
+            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-electric" />
+            <p>
+              Application sent, including the CV. This form is empty and ready for the next person.
+            </p>
+          </div>
+        )}
         <div className="grid items-start gap-10 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <SectionHeader
