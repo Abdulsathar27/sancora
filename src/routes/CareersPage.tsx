@@ -17,7 +17,7 @@ export function CareersPage() {
     <>
       <PageMeta
         title="Internship Program"
-        description={`Apply to the ${COMPANY_NAME} internship program. A 3–6 month mentored internship in Bangalore for students and fresh graduates.`}
+        description={`Apply to the ${COMPANY_NAME} internship program. A 1–2 month mentored internship in Bangalore for students and fresh graduates.`}
       />
 
       <Section>

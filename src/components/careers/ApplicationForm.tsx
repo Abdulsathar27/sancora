@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
 import { Card } from '../ui/Card'
@@ -11,8 +11,16 @@ interface ApplicationFormProps {
   defaultRole?: string
 }
 
+const MAX_CV_BYTES = 5 * 1024 * 1024
+
+function isCvFile(file: File) {
+  return /\.(pdf|doc|docx)$/i.test(file.name)
+}
+
 export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
-  const { formData, status, updateField, setRole, submitForm } = useCareerForm()
+  const { formData, status, errorMessage, updateField, setRole, submitForm } = useCareerForm()
+  const [cv, setCv] = useState<File | null>(null)
+  const [cvError, setCvError] = useState('')
 
   useEffect(() => {
     if (defaultRole) setRole(defaultRole)
@@ -27,10 +35,10 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           className="py-10 text-center"
         >
           <CheckCircle2 className="mx-auto h-12 w-12 text-electric" />
-          <h3 className="mt-4 text-xl font-semibold text-white">Application started</h3>
+          <h3 className="mt-4 text-xl font-semibold text-white">Application sent</h3>
           <p className="mx-auto mt-2 max-w-md text-silver-muted">
-            Your email app should open with the internship details. Send it to {COMPANY_EMAIL} so
-            our team can review your application.
+            Your details and CV were emailed to {COMPANY_EMAIL}. The team will review your
+            internship application.
           </p>
         </motion.div>
       </Card>
@@ -39,7 +47,17 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
 
   return (
     <Card hover={false}>
-      <form onSubmit={submitForm} className="space-y-5">
+      <form
+        onSubmit={(event) => {
+          if (!cv) {
+            event.preventDefault()
+            setCvError('Upload your CV to apply.')
+            return
+          }
+          void submitForm(event, cv)
+        }}
+        className="space-y-5"
+      >
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="career-name" className="mb-1.5 block text-sm font-medium text-silver">
@@ -165,6 +183,43 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
         </div>
 
         <div>
+          <label htmlFor="career-cv" className="mb-1.5 block text-sm font-medium text-silver">
+            Upload CV *
+          </label>
+          <input
+            id="career-cv"
+            type="file"
+            required
+            accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            onChange={(e) => {
+              const file = e.target.files?.[0]
+              if (!file) {
+                setCv(null)
+                setCvError('Upload your CV to apply.')
+                return
+              }
+              if (!isCvFile(file)) {
+                setCv(null)
+                setCvError('Upload a PDF or Word file.')
+                e.target.value = ''
+                return
+              }
+              if (file.size > MAX_CV_BYTES) {
+                setCv(null)
+                setCvError('CV must be 5 MB or smaller.')
+                e.target.value = ''
+                return
+              }
+              setCvError('')
+              setCv(file)
+            }}
+            className="w-full rounded-lg border border-white/10 bg-charcoal px-4 py-2.5 text-sm text-silver file:mr-4 file:rounded-md file:border-0 file:bg-electric/15 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white"
+          />
+          <p className="mt-1.5 text-xs text-silver-muted">PDF or Word, up to 5 MB. This file is attached to the application email.</p>
+          {cvError && <p className="mt-1.5 text-sm text-red-400">{cvError}</p>}
+        </div>
+
+        <div>
           <label htmlFor="career-message" className="mb-1.5 block text-sm font-medium text-silver">
             Why this internship *
           </label>
@@ -182,7 +237,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
         {status === 'error' && (
           <div className="flex items-center gap-2 text-sm text-red-400">
             <AlertCircle className="h-4 w-4" />
-            Something went wrong. Email us directly at {COMPANY_EMAIL}.
+            {errorMessage || `Something went wrong. Email us directly at ${COMPANY_EMAIL}.`}
           </div>
         )}
 
@@ -190,14 +245,14 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           {status === 'loading' ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Opening email...
+              Sending application...
             </>
           ) : (
             'Apply to the program'
           )}
         </Button>
         <p className="text-xs text-silver-muted">
-          Internship applications are sent to {COMPANY_EMAIL}. Attach your CV or resume before you send the email.
+          Your details and CV are emailed to {COMPANY_EMAIL}.
         </p>
       </form>
     </Card>

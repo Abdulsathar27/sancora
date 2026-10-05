@@ -1,6 +1,6 @@
 export const internshipProgram = {
   title: 'Sancora Internship Program',
-  duration: '3–6 months',
+  duration: '1–2 months',
   location: 'Bangalore · Hybrid',
   who: 'Students and fresh graduates',
   summary:
@@ -21,7 +21,7 @@ export const internshipHighlights = [
     description: 'Apply once. We place you with a mentor in the area that fits your studies and interest.',
   },
   {
-    title: '3 to 6 months',
+    title: '1 to 2 months',
     description: 'A fixed internship period with weekly feedback and a short demo at the end of each sprint.',
   },
   {
