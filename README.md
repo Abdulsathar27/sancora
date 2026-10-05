@@ -24,7 +24,7 @@ Vercel builds and publishes automatically. Check the commit on GitHub for the de
 |-------|-----------|
 | UI Framework | React (Vite) |
 | Styling | Tailwind CSS v4 |
-| State | React Context API (Nav, Contact Form) |
+| State | React Context API (Nav, Contact Form, Careers) |
 | Routing | TanStack Router (type-safe, code-based routes) |
 | Icons | lucide-react |
 | Animations | Framer Motion |
@@ -38,6 +38,8 @@ Vercel builds and publishes automatically. Check the commit on GitHub for the de
 | `/services` | Service overview with sub-capabilities |
 | `/services/$serviceId` | Dynamic service detail pages |
 | `/case-studies` | Portfolio / case study highlights |
+| `/careers` | Open roles, filters, and applications |
+| `/careers/$jobId` | Job detail and apply form |
 | `/contact` | Contact form with Context-managed submission state |
 
 ## Getting Started

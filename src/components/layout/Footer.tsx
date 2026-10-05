@@ -8,6 +8,7 @@ const footerLinks = {
     { to: '/about', label: 'About Us' },
     { to: '/services', label: 'Services' },
     { to: '/case-studies', label: 'Case Studies' },
+    { to: '/careers', label: 'Careers' },
     { to: '/contact', label: 'Contact' },
   ],
   services: [
