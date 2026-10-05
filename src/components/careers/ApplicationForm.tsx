@@ -31,8 +31,8 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
         method="POST"
         encType="multipart/form-data"
         onSubmit={(event) => {
-          const file = (event.currentTarget.elements.namedItem('attachment') as HTMLInputElement)
-            .files?.[0]
+          const form = event.currentTarget
+          const file = (form.elements.namedItem('attachment') as HTMLInputElement).files?.[0]
           if (!file || !isCvFile(file)) {
             event.preventDefault()
             setCvError('Upload a PDF or Word CV to apply.')
@@ -41,15 +41,27 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           if (file.size > MAX_CV_BYTES) {
             event.preventDefault()
             setCvError('CV must be 5 MB or smaller.')
+            return
           }
+          const subject = form.elements.namedItem('_subject') as HTMLInputElement
+          const when = new Date().toLocaleString('en-IN', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })
+          subject.value = `Internship — ${formData.name.trim()} — ${formData.role.trim()} — ${when}`
         }}
         className="space-y-5"
       >
-        <input type="hidden" name="_subject" value="Internship program application" />
-        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_subject" value="Internship application" />
+        <input type="hidden" name="_template" value="box" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_next" value={`${SITE_URL}/internship?applied=1#received`} />
-        <input type="hidden" name="cv_file" value={cvName || 'Not uploaded'} />
+        <input
+          type="hidden"
+          name="How to review"
+          value="This is one separate application. Read this person on their own. Check the area, college, year, reason, and the attached CV before you select or reject them."
+        />
+        <input type="hidden" name="CV file name" value={cvName || 'Not uploaded'} />
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="career-name" className="mb-1.5 block text-sm font-medium text-silver">
@@ -57,7 +69,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-name"
-              name="name"
+              name="Full name"
               type="text"
               required
               value={formData.name}
@@ -90,7 +102,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-phone"
-              name="phone"
+              name="Phone"
               type="tel"
               value={formData.phone}
               onChange={(e) => updateField('phone', e.target.value)}
@@ -104,7 +116,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <select
               id="career-role"
-              name="area"
+              name="Area to learn"
               required
               value={formData.role}
               onChange={(e) => updateField('role', e.target.value)}
@@ -127,7 +139,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-college"
-              name="college"
+              name="College"
               type="text"
               required
               value={formData.college}
@@ -142,7 +154,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-year"
-              name="year"
+              name="Year or graduation"
               type="text"
               required
               value={formData.year}
@@ -157,7 +169,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-linkedin"
-              name="linkedin"
+              name="LinkedIn"
               type="url"
               value={formData.linkedin}
               onChange={(e) => updateField('linkedin', e.target.value)}
@@ -173,7 +185,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           </label>
           <input
             id="career-portfolio"
-            name="portfolio"
+            name="Portfolio or GitHub"
             type="url"
             value={formData.portfolio}
             onChange={(e) => updateField('portfolio', e.target.value)}
@@ -226,7 +238,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           </label>
           <textarea
             id="career-message"
-            name="message"
+            name="Why this internship"
             required
             rows={5}
             value={formData.message}
