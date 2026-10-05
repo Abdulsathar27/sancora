@@ -17,7 +17,6 @@ function isCvFile(file: File) {
 
 export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
   const { formData, updateField, setRole } = useCareerForm()
-  const [cvName, setCvName] = useState('')
   const [cvError, setCvError] = useState('')
 
   useEffect(() => {
@@ -44,24 +43,35 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             return
           }
           const subject = form.elements.namedItem('_subject') as HTMLInputElement
+          const details = form.elements.namedItem('Application') as HTMLTextAreaElement
           const when = new Date().toLocaleString('en-IN', {
             dateStyle: 'medium',
             timeStyle: 'short',
           })
           subject.value = `Internship — ${formData.name.trim()} — ${formData.role.trim()} — ${when}`
+          details.value = [
+            `Name: ${formData.name.trim()}`,
+            `Email: ${formData.email.trim()}`,
+            `Phone: ${formData.phone.trim() || '—'}`,
+            `Area: ${formData.role.trim()}`,
+            `College: ${formData.college.trim()}`,
+            `Year: ${formData.year.trim()}`,
+            `LinkedIn: ${formData.linkedin.trim() || '—'}`,
+            `Portfolio: ${formData.portfolio.trim() || '—'}`,
+            `CV: ${file.name}`,
+            '',
+            'Why they applied:',
+            formData.message.trim(),
+          ].join('\n')
         }}
         className="space-y-5"
       >
         <input type="hidden" name="_subject" value="Internship application" />
-        <input type="hidden" name="_template" value="box" />
+        <input type="hidden" name="_template" value="basic" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_next" value={`${SITE_URL}/internship?applied=1#received`} />
-        <input
-          type="hidden"
-          name="How to review"
-          value="This is one separate application. Read this person on their own. Check the area, college, year, reason, and the attached CV before you select or reject them."
-        />
-        <input type="hidden" name="CV file name" value={cvName || 'Not uploaded'} />
+        <textarea name="Application" defaultValue="" hidden readOnly />
+        <input type="hidden" name="email" value={formData.email} />
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="career-name" className="mb-1.5 block text-sm font-medium text-silver">
@@ -69,7 +79,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-name"
-              name="Full name"
               type="text"
               required
               value={formData.name}
@@ -84,7 +93,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-email"
-              name="email"
               type="email"
               required
               value={formData.email}
@@ -102,7 +110,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-phone"
-              name="Phone"
               type="tel"
               value={formData.phone}
               onChange={(e) => updateField('phone', e.target.value)}
@@ -116,7 +123,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <select
               id="career-role"
-              name="Area to learn"
               required
               value={formData.role}
               onChange={(e) => updateField('role', e.target.value)}
@@ -139,7 +145,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-college"
-              name="College"
               type="text"
               required
               value={formData.college}
@@ -154,7 +159,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-year"
-              name="Year or graduation"
               type="text"
               required
               value={formData.year}
@@ -169,7 +173,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             </label>
             <input
               id="career-linkedin"
-              name="LinkedIn"
               type="url"
               value={formData.linkedin}
               onChange={(e) => updateField('linkedin', e.target.value)}
@@ -185,7 +188,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           </label>
           <input
             id="career-portfolio"
-            name="Portfolio or GitHub"
             type="url"
             value={formData.portfolio}
             onChange={(e) => updateField('portfolio', e.target.value)}
@@ -207,24 +209,20 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             onChange={(e) => {
               const file = e.target.files?.[0]
               if (!file) {
-                setCvName('')
                 setCvError('Upload your CV to apply.')
                 return
               }
               if (!isCvFile(file)) {
-                setCvName('')
                 setCvError('Upload a PDF or Word file.')
                 e.target.value = ''
                 return
               }
               if (file.size > MAX_CV_BYTES) {
-                setCvName('')
                 setCvError('CV must be 5 MB or smaller.')
                 e.target.value = ''
                 return
               }
               setCvError('')
-              setCvName(file.name)
             }}
             className="w-full rounded-lg border border-white/10 bg-charcoal px-4 py-2.5 text-sm text-silver file:mr-4 file:rounded-md file:border-0 file:bg-electric/15 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white"
           />
@@ -238,7 +236,6 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           </label>
           <textarea
             id="career-message"
-            name="Why this internship"
             required
             rows={5}
             value={formData.message}
