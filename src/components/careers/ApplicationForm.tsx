@@ -48,7 +48,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
         <input type="hidden" name="_subject" value="Internship program application" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" value={`${SITE_URL}/internship?applied=1`} />
+        <input type="hidden" name="_next" value={`${SITE_URL}/internship?applied=1#received`} />
         <input type="hidden" name="cv_file" value={cvName || 'Not uploaded'} />
         <div className="grid gap-5 sm:grid-cols-2">
           <div>

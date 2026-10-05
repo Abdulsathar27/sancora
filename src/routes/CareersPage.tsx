@@ -10,16 +10,20 @@ import { internshipHighlights, internshipProgram, programIncludes } from '../dat
 import { COMPANY_NAME } from '../data/brand'
 
 export function CareersPage() {
-  const [applied, setApplied] = useState(false)
+  const [applied] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const params = new URLSearchParams(window.location.search)
+    return params.get('applied') === '1' || window.location.hash === '#received'
+  })
 
   useEffect(() => {
+    if (!applied) return
     const params = new URLSearchParams(window.location.search)
-    if (params.get('applied') !== '1') return
-    setApplied(true)
     params.delete('applied')
     const query = params.toString()
     window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}`)
-  }, [])
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [applied])
 
   const apply = () => {
     document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -28,12 +32,34 @@ export function CareersPage() {
   return (
     <>
       <PageMeta
-        title="Internship Program"
+        title={applied ? 'Application received' : 'Internship Program'}
         description={`Apply to the ${COMPANY_NAME} internship program. A 1–2 month mentored internship in Bangalore for students and fresh graduates.`}
       />
 
       <Section>
-        <div className="mx-auto max-w-3xl text-center">
+        {applied ? (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mx-auto max-w-2xl rounded-2xl border border-electric/30 bg-electric/10 px-6 py-10 text-center sm:px-10"
+          >
+            <CheckCircle2 className="mx-auto h-14 w-14 text-electric" />
+            <p className="mt-4 text-sm font-medium uppercase tracking-widest text-electric">
+              Application received
+            </p>
+            <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Thank you. Your internship application is submitted.
+            </h1>
+            <p className="mt-4 text-lg text-silver-muted">
+              We have your details and your CV. The Sancora team will read your application and
+              email you if you are selected.
+            </p>
+            <p className="mt-3 text-sm text-silver-muted">
+              You can close this page. The form below is empty if another person wants to apply.
+            </p>
+          </motion.div>
+        ) : (
+          <div className="mx-auto max-w-3xl text-center">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -73,7 +99,8 @@ export function CareersPage() {
           <button type="button" onClick={apply} className="mt-8">
             <Button size="lg">Apply for the internship</Button>
           </button>
-        </div>
+          </div>
+        )}
       </Section>
 
       <Section dark>
@@ -113,14 +140,6 @@ export function CareersPage() {
       </Section>
 
       <Section id="apply">
-        {applied && (
-          <div className="mb-8 flex items-start gap-3 rounded-xl border border-electric/30 bg-electric/10 px-4 py-4 text-silver">
-            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-electric" />
-            <p>
-              Application sent, including the CV. This form is empty and ready for the next person.
-            </p>
-          </div>
-        )}
         <div className="grid items-start gap-10 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <SectionHeader
