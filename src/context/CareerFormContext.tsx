@@ -13,7 +13,8 @@ export interface CareerFormData {
   email: string
   phone: string
   role: string
-  experience: string
+  college: string
+  year: string
   linkedin: string
   portfolio: string
   message: string
@@ -34,7 +35,8 @@ const initialFormData: CareerFormData = {
   email: '',
   phone: '',
   role: '',
-  experience: '',
+  college: '',
+  year: '',
   linkedin: '',
   portfolio: '',
   message: '',
@@ -43,20 +45,21 @@ const initialFormData: CareerFormData = {
 const CareerFormContext = createContext<CareerFormContextValue | null>(null)
 
 function buildMailto(data: CareerFormData): string {
-  const role = data.role.trim() || 'General application'
-  const subject = `Job application — ${role}`
+  const role = data.role.trim() || 'Internship program'
+  const subject = `Internship program application — ${role}`
   const body = [
-    'New careers application from the Sancora website',
+    'New internship application from the Sancora website',
     '',
     `Name: ${data.name}`,
     `Email: ${data.email}`,
     `Phone: ${data.phone || '—'}`,
-    `Role: ${role}`,
-    `Experience: ${data.experience || '—'}`,
+    `Internship: ${role}`,
+    `College: ${data.college || '—'}`,
+    `Year / graduation: ${data.year || '—'}`,
     `LinkedIn: ${data.linkedin || '—'}`,
     `Portfolio / GitHub: ${data.portfolio || '—'}`,
     '',
-    'Why they are a fit:',
+    'Why they want this internship:',
     data.message,
   ].join('\n')
 

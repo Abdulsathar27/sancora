@@ -12,7 +12,7 @@ const navLinks = [
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services', hasMenu: true },
   { to: '/case-studies', label: 'Case Studies' },
-  { to: '/careers', label: 'Careers' },
+  { to: '/internship', label: 'Internship' },
   { to: '/contact', label: 'Contact' },
 ] as const
 

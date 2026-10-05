@@ -1,36 +1,23 @@
-import { useMemo, useState } from 'react'
-import { Link } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
-import { ArrowRight, Briefcase, Clock, MapPin } from 'lucide-react'
+import { CheckCircle2, Clock, GraduationCap, MapPin } from 'lucide-react'
 import { PageMeta } from '../components/layout/PageMeta'
 import { ApplicationForm } from '../components/careers/ApplicationForm'
 import { Section, SectionHeader } from '../components/ui/Section'
 import { Card } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
-import {
-  careerBenefits,
-  jobDepartments,
-  jobOpenings,
-  type JobDepartment,
-} from '../data/careers'
+import { internshipHighlights, internshipProgram, programIncludes } from '../data/careers'
 import { COMPANY_NAME } from '../data/brand'
 
 export function CareersPage() {
-  const [department, setDepartment] = useState<'All' | JobDepartment>('All')
-
-  const jobs = useMemo(
-    () =>
-      department === 'All'
-        ? jobOpenings
-        : jobOpenings.filter((job) => job.department === department),
-    [department],
-  )
+  const apply = () => {
+    document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <>
       <PageMeta
-        title="Careers"
-        description={`Open roles at ${COMPANY_NAME}. Apply for software, data, cloud, design, and business positions in Bangalore — or send a general application.`}
+        title="Internship Program"
+        description={`Apply to the ${COMPANY_NAME} internship program. A 3–6 month mentored internship in Bangalore for students and fresh graduates.`}
       />
 
       <Section>
@@ -40,14 +27,14 @@ export function CareersPage() {
             animate={{ opacity: 1 }}
             className="mb-3 inline-block text-sm font-medium uppercase tracking-widest text-electric"
           >
-            Careers
+            Internship program
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl font-bold text-white sm:text-4xl md:text-5xl"
           >
-            Find your next role. Help us find you.
+            Learn with us. Apply directly.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -55,21 +42,36 @@ export function CareersPage() {
             transition={{ delay: 0.1 }}
             className="mt-6 text-lg text-silver-muted"
           >
-            Open roles for people who want to ship real client work. If you are a strong fit and do
-            not see your title listed, send a general application — we hire for capability, not
-            only job titles.
+            {internshipProgram.summary}
           </motion.p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-silver-muted">
+            <span className="inline-flex items-center gap-2">
+              <Clock className="h-4 w-4 text-electric" />
+              {internshipProgram.duration}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-electric" />
+              {internshipProgram.location}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <GraduationCap className="h-4 w-4 text-electric" />
+              {internshipProgram.who}
+            </span>
+          </div>
+          <button type="button" onClick={apply} className="mt-8">
+            <Button size="lg">Apply for the internship</Button>
+          </button>
         </div>
       </Section>
 
       <Section dark>
         <SectionHeader
-          label="Why Sancora"
-          title="What we look for"
-          description="We hire people who take ownership, communicate clearly, and care about the client outcome — not just the ticket."
+          label="The program"
+          title="How the internship works"
+          description="Apply once to the internship program. We match you with a mentor in the area that fits your studies."
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {careerBenefits.map((item, i) => (
+          {internshipHighlights.map((item, i) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 16 }}
@@ -84,90 +86,28 @@ export function CareersPage() {
             </motion.div>
           ))}
         </div>
+
+        <Card hover={false} className="mt-8">
+          <h2 className="mb-5 text-xl font-semibold text-white">What the program includes</h2>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {programIncludes.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-silver">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-electric" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </Card>
       </Section>
 
-      <Section>
-        <SectionHeader
-          label="Open roles"
-          title="Job opportunities"
-          description={`${jobOpenings.length} live openings. Filter by team, then apply with your profile.`}
-        />
-
-        <div className="mb-8 flex flex-wrap justify-center gap-2">
-          {jobDepartments.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setDepartment(item)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                department === item
-                  ? 'bg-electric/15 text-white ring-1 ring-electric/40'
-                  : 'text-silver hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          {jobs.map((job, i) => (
-            <motion.div
-              key={job.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.04 }}
-            >
-              <Card className="flex h-full flex-col">
-                <div className="mb-3 flex flex-wrap gap-2">
-                  <span className="rounded-full bg-electric/10 px-3 py-1 text-xs font-medium text-electric">
-                    {job.department}
-                  </span>
-                  <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-silver">
-                    {job.type}
-                  </span>
-                </div>
-                <h2 className="text-xl font-semibold text-white">{job.title}</h2>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-silver-muted">{job.summary}</p>
-                <div className="mt-4 flex flex-wrap gap-4 text-xs text-silver-muted">
-                  <span className="inline-flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 text-electric" />
-                    {job.location}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <Briefcase className="h-3.5 w-3.5 text-electric" />
-                    {job.experience}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-electric" />
-                    {job.type}
-                  </span>
-                </div>
-                <Link to="/careers/$jobId" params={{ jobId: job.id }} className="mt-6 inline-flex">
-                  <Button variant="secondary" size="sm">
-                    View role & apply
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        {jobs.length === 0 && (
-          <p className="text-center text-silver-muted">No openings in this team right now.</p>
-        )}
-      </Section>
-
-      <Section dark id="apply">
+      <Section id="apply">
         <div className="grid items-start gap-10 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <SectionHeader
               centered={false}
               label="Apply"
-              title="Send your profile"
-              description="Tell us the role you want and why you are a fit. We review every application and reply to shortlisted candidates."
+              title="Internship application"
+              description="Tell us your college, when you can start, and the area you want to learn. This form is only for the internship program."
             />
           </div>
           <div className="lg:col-span-3">

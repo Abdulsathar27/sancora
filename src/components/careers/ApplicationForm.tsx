@@ -4,7 +4,7 @@ import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
 import { Card } from '../ui/Card'
 import { Button } from '../ui/Button'
 import { useCareerForm } from '../../context/CareerFormContext'
-import { jobOpenings } from '../../data/careers'
+import { programAreas } from '../../data/careers'
 import { COMPANY_EMAIL } from '../../data/brand'
 
 interface ApplicationFormProps {
@@ -29,8 +29,8 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           <CheckCircle2 className="mx-auto h-12 w-12 text-electric" />
           <h3 className="mt-4 text-xl font-semibold text-white">Application started</h3>
           <p className="mx-auto mt-2 max-w-md text-silver-muted">
-            Your email app should open with the application details. Send it to {COMPANY_EMAIL} so
-            our team can review your profile.
+            Your email app should open with the internship details. Send it to {COMPANY_EMAIL} so
+            our team can review your application.
           </p>
         </motion.div>
       </Card>
@@ -87,7 +87,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
           </div>
           <div>
             <label htmlFor="career-role" className="mb-1.5 block text-sm font-medium text-silver">
-              Role *
+              Area you want to learn *
             </label>
             <select
               id="career-role"
@@ -96,29 +96,43 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
               onChange={(e) => updateField('role', e.target.value)}
               className="w-full rounded-lg border border-white/10 bg-charcoal px-4 py-2.5 text-white focus:border-electric focus:outline-none focus:ring-1 focus:ring-electric"
             >
-              <option value="">Select a role</option>
-              {jobOpenings.map((job) => (
-                <option key={job.id} value={job.title}>
-                  {job.title}
+              <option value="">Select an area</option>
+              {programAreas.map((area) => (
+                <option key={area} value={area}>
+                  {area}
                 </option>
               ))}
-              <option value="General application">General application — not listed</option>
             </select>
           </div>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label htmlFor="career-experience" className="mb-1.5 block text-sm font-medium text-silver">
-              Years of experience
+            <label htmlFor="career-college" className="mb-1.5 block text-sm font-medium text-silver">
+              College *
             </label>
             <input
-              id="career-experience"
+              id="career-college"
               type="text"
-              value={formData.experience}
-              onChange={(e) => updateField('experience', e.target.value)}
+              required
+              value={formData.college}
+              onChange={(e) => updateField('college', e.target.value)}
               className="w-full rounded-lg border border-white/10 bg-charcoal px-4 py-2.5 text-white placeholder:text-silver-muted/50 focus:border-electric focus:outline-none focus:ring-1 focus:ring-electric"
-              placeholder="e.g. 3 years"
+              placeholder="College or university"
+            />
+          </div>
+          <div>
+            <label htmlFor="career-year" className="mb-1.5 block text-sm font-medium text-silver">
+              Year / graduation *
+            </label>
+            <input
+              id="career-year"
+              type="text"
+              required
+              value={formData.year}
+              onChange={(e) => updateField('year', e.target.value)}
+              className="w-full rounded-lg border border-white/10 bg-charcoal px-4 py-2.5 text-white placeholder:text-silver-muted/50 focus:border-electric focus:outline-none focus:ring-1 focus:ring-electric"
+              placeholder="e.g. 3rd year, 2026"
             />
           </div>
           <div>
@@ -152,7 +166,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
 
         <div>
           <label htmlFor="career-message" className="mb-1.5 block text-sm font-medium text-silver">
-            Why you are a fit *
+            Why this internship *
           </label>
           <textarea
             id="career-message"
@@ -161,7 +175,7 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
             value={formData.message}
             onChange={(e) => updateField('message', e.target.value)}
             className="w-full resize-none rounded-lg border border-white/10 bg-charcoal px-4 py-2.5 text-white placeholder:text-silver-muted/50 focus:border-electric focus:outline-none focus:ring-1 focus:ring-electric"
-            placeholder="Tell us about relevant work, what you want to own here, and when you can start."
+            placeholder="What you have built or studied, and when you can start."
           />
         </div>
 
@@ -179,11 +193,11 @@ export function ApplicationForm({ defaultRole = '' }: ApplicationFormProps) {
               Opening email...
             </>
           ) : (
-            'Submit application'
+            'Apply to the program'
           )}
         </Button>
         <p className="text-xs text-silver-muted">
-          Applications are sent to {COMPANY_EMAIL}. Attach your CV in the email before sending.
+          Internship applications are sent to {COMPANY_EMAIL}. Attach your CV or resume before you send the email.
         </p>
       </form>
     </Card>

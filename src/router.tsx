@@ -1,4 +1,4 @@
-import { createRootRoute, createRoute, createRouter, Outlet } from '@tanstack/react-router'
+import { createRootRoute, createRoute, createRouter, Outlet, redirect } from '@tanstack/react-router'
 import { Layout } from './components/layout/Layout'
 import { AppProviders } from './context/AppProviders'
 import { HomePage } from './routes/HomePage'
@@ -7,7 +7,6 @@ import { ServicesPage } from './routes/ServicesPage'
 import { ServiceDetailPage } from './routes/ServiceDetailPage'
 import { CaseStudiesPage } from './routes/CaseStudiesPage'
 import { CareersPage } from './routes/CareersPage'
-import { JobDetailPage } from './routes/JobDetailPage'
 import { ContactPage } from './routes/ContactPage'
 
 const rootRoute = createRootRoute({
@@ -50,16 +49,34 @@ const caseStudiesRoute = createRoute({
   component: CaseStudiesPage,
 })
 
-const careersRoute = createRoute({
+const internshipRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/careers',
+  path: '/internship',
   component: CareersPage,
 })
 
-const jobDetailRoute = createRoute({
+const careersRedirectRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/careers',
+  beforeLoad: () => {
+    throw redirect({ to: '/internship' })
+  },
+})
+
+const oldInternshipDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/internship/$jobId',
+  beforeLoad: () => {
+    throw redirect({ to: '/internship' })
+  },
+})
+
+const careersDetailRedirectRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/careers/$jobId',
-  component: JobDetailPage,
+  beforeLoad: () => {
+    throw redirect({ to: '/internship' })
+  },
 })
 
 const contactRoute = createRoute({
@@ -74,8 +91,10 @@ const routeTree = rootRoute.addChildren([
   servicesRoute,
   serviceDetailRoute,
   caseStudiesRoute,
-  careersRoute,
-  jobDetailRoute,
+  internshipRoute,
+  careersRedirectRoute,
+  oldInternshipDetailRoute,
+  careersDetailRedirectRoute,
   contactRoute,
 ])
 

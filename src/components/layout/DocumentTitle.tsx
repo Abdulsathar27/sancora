@@ -1,14 +1,13 @@
 import { useEffect } from 'react'
 import { useRouterState } from '@tanstack/react-router'
 import { COMPANY_NAME } from '../../data/brand'
-import { getJobById } from '../../data/careers'
 
 const routeTitles: Record<string, string> = {
   '/': 'Home',
   '/about': 'About',
   '/services': 'Services',
   '/case-studies': 'Case Studies',
-  '/careers': 'Careers',
+  '/internship': 'Internship Program',
   '/contact': 'Contact',
 }
 
@@ -24,11 +23,6 @@ function resolveTitle(pathname: string): string {
   if (pathname.startsWith('/services/')) {
     const id = pathname.split('/')[2] ?? ''
     return serviceTitles[id] ?? 'Services'
-  }
-
-  if (pathname.startsWith('/careers/')) {
-    const id = pathname.split('/')[2] ?? ''
-    return getJobById(id)?.title ?? 'Careers'
   }
 
   return 'Home'
