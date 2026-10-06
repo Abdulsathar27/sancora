@@ -13,7 +13,7 @@ export function ClientSection() {
           description="Organizations that rely on Sancora for mission-critical technology solutions."
         />
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {clientLogos.map((name, i) => (
             <motion.div
               key={name}

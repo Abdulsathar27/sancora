@@ -21,7 +21,7 @@ export const testimonials: Testimonial[] = [
       'We needed a partner who could handle both development and data. Sancora bridged that gap perfectly, building our customer portal and BI dashboards under one roof.',
     author: 'Sarah Chen',
     role: 'VP of Operations',
-    company: 'Meridian Health',
+    company: 'Gait Rehab Health',
   },
   {
     id: '3',
@@ -29,7 +29,7 @@ export const testimonials: Testimonial[] = [
       'Five years of working together and they consistently exceed expectations. Professional, responsive, and genuinely invested in our success.',
     author: 'David Okonkwo',
     role: 'Director of IT',
-    company: 'Atlas Logistics',
+    company: 'Sanco Logistics',
   },
   {
     id: '4',
@@ -37,15 +37,14 @@ export const testimonials: Testimonial[] = [
       'Their cloud migration strategy saved us significant infrastructure costs while improving uptime. A truly enterprise-grade partner.',
     author: 'Emily Torres',
     role: 'Head of Engineering',
-    company: 'NovaRetail Group',
+    company: 'Quick Pack Group',
   },
 ]
 
 export const clientLogos = [
   'FinEdge Solutions',
-  'Meridian Health',
-  'Atlas Logistics',
-  'NovaRetail Group',
+  'Gait Rehab Health',
+  'Sanco Logistics',
+  'Quick Pack Group',
   'TechVault Inc.',
-  'GlobalSync Corp',
 ]

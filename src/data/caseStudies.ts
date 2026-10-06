@@ -33,12 +33,12 @@ export const caseStudies: CaseStudy[] = [
   {
     id: 'meridian-portal',
     title: 'Patient Portal & BI Suite',
-    client: 'Meridian Health',
+    client: 'Gait Rehab Health',
     industry: 'Healthcare',
     summary:
       'Developed a HIPAA-compliant patient portal integrated with Power BI dashboards for operational insights.',
     challenge:
-      'Meridian required a secure patient-facing portal alongside internal BI tools, all within strict compliance requirements.',
+      'Gait Rehab Health required a secure patient-facing portal alongside internal BI tools, all within strict compliance requirements.',
     solution:
       'Full-stack development with role-based access control, encrypted data handling, and embedded Power BI reports for department heads.',
     results: [
@@ -52,11 +52,11 @@ export const caseStudies: CaseStudy[] = [
   {
     id: 'atlas-logistics',
     title: 'Supply Chain Optimization System',
-    client: 'Atlas Logistics',
+    client: 'Sanco Logistics',
     industry: 'Logistics',
     summary: 'Custom logistics management system with predictive routing and real-time fleet tracking.',
     challenge:
-      'Atlas struggled with fragmented tracking systems causing delivery delays and poor visibility across their fleet.',
+      'Sanco Logistics struggled with fragmented tracking systems causing delivery delays and poor visibility across their fleet.',
     solution:
       'Built an integrated logistics platform with GPS tracking, ML-based route optimization, and automated dispatch workflows.',
     results: [
@@ -70,12 +70,12 @@ export const caseStudies: CaseStudy[] = [
   {
     id: 'novaretail-cloud',
     title: 'Cloud Migration & E-Commerce Platform',
-    client: 'NovaRetail Group',
+    client: 'Quick Pack Group',
     industry: 'Retail',
     summary:
       'Migrated legacy infrastructure to AWS and rebuilt their e-commerce platform for peak-season scalability.',
     challenge:
-      'NovaRetail faced recurring downtime during peak sales periods due to aging on-premise infrastructure.',
+      'Quick Pack Group faced recurring downtime during peak sales periods due to aging on-premise infrastructure.',
     solution:
       'Complete AWS migration with auto-scaling architecture, CDN optimization, and a modern React storefront.',
     results: [
