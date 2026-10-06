@@ -132,7 +132,7 @@ export function AboutPage() {
           description="The people driving Sancora's commitment to excellence."
         />
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {leadership.map((member, i) => (
             <motion.div
               key={member.id}
@@ -141,13 +141,18 @@ export function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
             >
-              <Card className="text-center">
-                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-linear-to-br from-electric to-cyan text-2xl font-bold text-white">
-                  {member.initials}
+              <Card className="relative h-full overflow-hidden text-center">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(ellipse_at_top,rgba(0,123,255,0.22),transparent_70%)]" />
+                <div className="relative">
+                  <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-linear-to-br from-electric to-cyan text-2xl font-bold text-white shadow-[0_0_0_6px_rgba(0,123,255,0.12),0_12px_30px_rgba(0,123,255,0.28)]">
+                    {member.initials}
+                  </div>
+                  <h3 className="text-xl font-semibold text-white">{member.name}</h3>
+                  <p className="mx-auto mt-2 inline-flex rounded-full border border-electric/25 bg-electric/10 px-3 py-1 text-xs font-medium tracking-wide text-electric">
+                    {member.role}
+                  </p>
+                  <p className="mt-4 text-sm leading-relaxed text-silver-muted">{member.bio}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-white">{member.name}</h3>
-                <p className="mb-3 text-sm text-electric">{member.role}</p>
-                <p className="text-sm leading-relaxed text-silver-muted">{member.bio}</p>
               </Card>
             </motion.div>
           ))}

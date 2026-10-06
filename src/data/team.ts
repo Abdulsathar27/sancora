@@ -9,31 +9,24 @@ export interface TeamMember {
 export const leadership: TeamMember[] = [
   {
     id: '1',
-    name: 'Arjun Sancora',
+    name: 'Sohail',
     role: 'Founder & CEO',
-    bio: 'Visionary leader with 15+ years in enterprise software. Founded Sancora Technologies to bridge the gap between complex data and actionable business outcomes.',
-    initials: 'AS',
+    bio: 'Leads Sancora with a focus on trusted software and clear business results. Sohail set the company up to turn complex work into outcomes clients can measure.',
+    initials: 'SO',
   },
   {
     id: '2',
-    name: 'Priya Nair',
+    name: 'Ryan',
     role: 'CTO',
-    bio: 'Architect of scalable systems. Priya leads our engineering practice, ensuring every solution meets enterprise-grade standards for performance and security.',
-    initials: 'PN',
+    bio: 'Owns the engineering practice. Ryan keeps every system reliable, secure, and ready to scale with the client.',
+    initials: 'RY',
   },
   {
     id: '3',
-    name: 'Michael Brooks',
+    name: 'Alby Thomas',
     role: 'Head of Data Analytics',
-    bio: 'Former data scientist turned analytics leader. Michael drives our BI and ML initiatives, helping clients transform raw data into strategic assets.',
-    initials: 'MB',
-  },
-  {
-    id: '4',
-    name: 'Lisa Zhang',
-    role: 'Director of Client Success',
-    bio: 'Ensures every engagement delivers measurable value. Lisa oversees project delivery and maintains the long-term partnerships that define our reputation.',
-    initials: 'LZ',
+    bio: 'Turns raw data into decisions. Alby Thomas leads analytics and BI so clients can see what is working and what to do next.',
+    initials: 'AT',
   },
 ]
 
